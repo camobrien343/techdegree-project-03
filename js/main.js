@@ -81,7 +81,7 @@ conflictingWorkshops(express, jsFrameworks);
 conflictingWorkshops(jsLibraries, nodeJs);
 conflictingWorkshops(nodeJs, jsLibraries);
 
-$(activities).on('click', () => {
+activitiesParent.addEventListener('click', () => {
     let totalCost = 0;
     $("#totalCost").remove();
           if ($("input[name='all']").is(":checked"))  {
@@ -95,32 +95,30 @@ $(activities).on('click', () => {
 
     if (totalCost > 0) {
     $(".activities").append("<p id='totalCost'>Total cost: $" + "<b>" + totalCost + "</b>" + " </p>");
-    $('#totalCost').css("float", "right")
+    $('#totalCost').css("float", "right");
     }
 });
+
+function showHide( el1Show, el2Hide, el3Hide ) {
+	$(el1Show).show();
+	$(el2Hide).hide();
+	$(el3Hide).hide();
+}
 
 $(payment).change( () => {
 	$option = $("#payment").val();
 	switch ($option) {
 		case 'credit card':
-			$("#credit-card").show();
-			$($paypal).hide();
-			$($bitcoin).hide();
+			showHide(creditCard, $paypal, $bitcoin);
 			break;
 		case 'paypal':
-			$("#credit-card").hide();
-			$($paypal).show();
-			$($bitcoin).hide();
+			showHide($paypal, creditCard, $bitcoin);
 			break;
 		case 'bitcoin':
-			$("#credit-card").hide();
-			$($paypal).hide();
-			$($bitcoin).show();
+			showHide($bitcoin, creditCard, $paypal);
 			break;
 		default:
-			$("#credit-card").hide();
-			$($paypal).hide();
-			$($bitcoin).hide();
+
 			break;
 	}
 });
